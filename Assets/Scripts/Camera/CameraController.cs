@@ -14,7 +14,7 @@ public class CameraController : MonoBehaviour {
     private float _rotationY;
     private Vector3 _rotationDir;
     private Vector3 _cameraForward;
-    private Vector3 _targetForward;
+    private Vector3 _cameraRight;
 
     void Start()
     {
@@ -43,7 +43,7 @@ public class CameraController : MonoBehaviour {
 
         _cameraForward = _camera.TransformDirection(Vector3.forward);
         _cameraForward.y = 0;
-        //_cameraForward = _cameraForward.normalized;
+        _cameraForward = _cameraForward.normalized;
 
         //_target.forward = _cameraForward;
         

@@ -54,14 +54,18 @@ public class PlayerInputs : MonoBehaviour {
         _moveVertical   = Input.GetAxis(InputAxes.leftY + _playerNumberString);
         _rotationHorizontal = Input.GetAxis(InputAxes.rightX + _playerNumberString);
         _rotationVertical = Input.GetAxis(InputAxes.rightY + _playerNumberString);
+        
         //Jumping & Teleporting
         _isJumping = Input.GetButtonDown(InputAxes.a + _playerNumberString);
         _isTeleporting = Input.GetButtonDown(InputAxes.lb + _playerNumberString);
+        
         //Attack
         _isAttacking = Input.GetButtonDown(InputAxes.x + _playerNumberString);
+
         //Sets the movement and roation vectors
         _moveDirection = new Vector3(_moveHorizontal, 0, _moveVertical);
         _rotateDirection = new Vector3(_rotationHorizontal, _rotationVertical, 0);
+
         //Returning inputs
         _playerMovement.Inputs(_moveDirection);
         _cameraController.Inputs(_rotateDirection);
