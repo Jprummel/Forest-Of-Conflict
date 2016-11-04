@@ -11,11 +11,12 @@ public class CollisionHandler : MonoBehaviour
         _respawn = GetComponent<PlayerRespawn>();
     }
 
+    //void OnCharacterController
+
     void OnTriggerEnter(Collider coll)
     {
         if (coll.gameObject.tag == "Weapon" && this.tag == "Player")
         {
-            Debug.Log("lmao");
             PlayerAttack enemySword = coll.gameObject.GetComponentInParent<PlayerAttack>();
             if (enemySword.Attacking()) //Checks if other player is attacking or not
             {

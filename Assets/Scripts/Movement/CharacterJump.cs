@@ -3,29 +3,24 @@ using System.Collections;
 
 public class CharacterJump : MonoBehaviour
 {
-
-    private Rigidbody _rb;
     private CharacterController _charController;
 
     [SerializeField]private float _jumpHeight;
     [SerializeField]private int _maxJumps;
     private float _gravity = 20;
     private int _jumpCount;
-    private bool _isJumping;
     private bool _pressedJump;
-    private Vector3 _jumpDir = Vector3.zero;
+    private Vector3 _moveDir = Vector3.zero;
 
     void Start()
     {
-        _rb = GetComponent<Rigidbody>();
-        _charController = GetComponent<CharacterController>();
-        EventManager.inputAction += Jump;
+        _charController = this.GetComponent<CharacterController>();
     }
 
     void Update()
     {
-        _jumpDir.y -= _gravity * Time.deltaTime;
-        _charController.Move(_jumpDir * Time.deltaTime);
+        _moveDir.y -= _gravity * Time.deltaTime;
+        _charController.Move(_moveDir * Time.deltaTime);
         Jump();
         if (_charController.collisionFlags == CollisionFlags.Below)
         {
@@ -44,9 +39,8 @@ public class CharacterJump : MonoBehaviour
         {
             if (_pressedJump)
             {
-                //_rb.velocity = new Vector3(0, _jumpHeight, 0);
-                _jumpDir.y = _jumpHeight;
-                _charController.Move(_jumpDir * Time.deltaTime);
+                _moveDir.y = _jumpHeight;
+                _charController.Move(_moveDir * Time.deltaTime);
                 _jumpCount++;
                 
             }

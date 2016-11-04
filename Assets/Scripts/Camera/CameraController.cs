@@ -35,7 +35,6 @@ public class CameraController : MonoBehaviour {
 
     void CamRotation()
     {
-        //_camera.LookAt(_target);
         _rotationX = Mathf.Clamp(_rotationX, _minX, _maxX);
         _camera.eulerAngles = new Vector3(_rotationX, _rotationY);
 
@@ -44,9 +43,9 @@ public class CameraController : MonoBehaviour {
 
         _cameraForward = _camera.TransformDirection(Vector3.forward);
         _cameraForward.y = 0;
-        _cameraForward = _cameraForward.normalized;
+        //_cameraForward = _cameraForward.normalized;
 
-        _target.forward = _cameraForward;
+        //_target.forward = _cameraForward;
         
     }
 }
