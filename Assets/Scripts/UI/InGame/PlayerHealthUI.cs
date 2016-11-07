@@ -10,8 +10,6 @@ public class PlayerHealthUI : MonoBehaviour {
 
 	void Start () {
         UIDelegates.TextEvent += UpdateLiveText;
-
-        _healthText.text = "Player " + _playerNumber.PlayerNumber + " Lives : " + _playerHealth.CurrentHealth.ToString(); //Starts off showing the players full life count
 	}
 
     void UpdateLiveText()
