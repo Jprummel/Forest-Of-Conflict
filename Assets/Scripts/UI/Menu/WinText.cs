@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class WinText : MonoBehaviour {
@@ -13,27 +14,35 @@ public class WinText : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        UIDelegates.TextEvent += CheckForWinner;
+
         _player1 = GameObject.Find("Player1");
         _player2 = GameObject.Find("Player2");
         _winText = GetComponent<Text>();
 	}
 	
-	// Update is called once per frame
-	void Update () {
-	    if(!_player1)
+    IEnumerator EndGame()
+    {
+        yield return new WaitForSeconds(_endtimer);
+        SceneManager.LoadScene("EndGame");
+    }
+
+    void CheckForWinner()
+    {
+        if (!_player1)
         {
             _winText.text = "Player 2 Wins!";
             StartCoroutine(EndGame());
-        }else if(!_player2)
+        }
+        else if (!_player2)
         {
             _winText.text = "Player 1 Wins!";
             StartCoroutine(EndGame());
         }
-	}
+    }
 
-    IEnumerator EndGame()
+    void OnDisable()
     {
-        yield return new WaitForSeconds(_endtimer);
-        Application.LoadLevel("EndGame");
+        UIDelegates.TextEvent -= CheckForWinner;
     }
 }

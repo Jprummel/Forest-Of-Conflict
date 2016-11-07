@@ -2,15 +2,41 @@
 using System.Collections;
 
 public class Teleport : MonoBehaviour {
-
-    private CharacterController _charController;
-    [SerializeField]private GameObject _particle;
-    [SerializeField]private float _teleportDistance;
-    [SerializeField]private int _teleportCharges;
-    private bool _isTeleporting;
-
-    private Vector3 _teleportDir;
     
+    [SerializeField]private GameObject  _particle;
+    [SerializeField]private float       _teleportDistance;
+    [SerializeField]private int         _maxTeleportCharges;
+    [SerializeField]private int         _teleportCharges;
+    [SerializeField]private float       _rechargeTime;
+
+    private CharacterController         _charController;
+    private bool                        _isTeleporting;
+    private float                       _chargingTime = 0;
+    private Vector3                     _teleportDir;
+    //Getters and setters
+    public int TeleportCharges
+    {
+        get { return _teleportCharges; }
+        set { _teleportCharges = value; }
+    }
+    public int MaxTeleportCharges
+    {
+        get { return _maxTeleportCharges; }
+        set { _maxTeleportCharges = value; }
+    }
+
+    public float ChargingTime
+    {
+        get { return _chargingTime; }
+        set { _chargingTime = value; }
+    }
+
+    public float RechargeTime
+    {
+        get { return _rechargeTime; }
+        set { _rechargeTime = value; }
+    }
+
 	void Start () {
         _charController = GetComponent<CharacterController>();
 	}
@@ -23,6 +49,7 @@ public class Teleport : MonoBehaviour {
 
 	void Update () {
         TeleportPlayer();
+        RechargeTeleport();
 	}
 
     void TeleportPlayer()
@@ -33,13 +60,34 @@ public class Teleport : MonoBehaviour {
             this._charController.Move(_teleportDir * Time.deltaTime * _teleportDistance);
             _teleportCharges--;
             _isTeleporting = false;
-            StartCoroutine(TeleportChargeGain());
+            //StartCoroutine(TeleportChargeGain());
+            //RechargeTeleport();
         }
+    }
+
+    void RechargeTeleport()
+    {
+        if (_teleportCharges < _maxTeleportCharges)
+        {
+            _chargingTime += Time.deltaTime;
+            if (_chargingTime >= _rechargeTime)
+            {
+                _chargingTime = 0;
+                _teleportCharges++;
+            }
+        }
+
+        
     }
 
     IEnumerator TeleportChargeGain()
     {
-        yield return new WaitForSeconds(5);
-        _teleportCharges++;
+        if (_teleportCharges < _maxTeleportCharges)
+        {
+            yield return new WaitForSeconds(5);
+            _teleportCharges++;
+        }
     }
+
+    
 }

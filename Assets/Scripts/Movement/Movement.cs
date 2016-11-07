@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayerMovement : MonoBehaviour 
+public class Movement : MonoBehaviour 
 {
     private CharacterController _charController;
     //Speed
@@ -23,7 +23,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (_moveDir.magnitude > 0)
         {
-            Movement();
+            Move();
             if (_moveDir.sqrMagnitude > 1)
             {
                 _newForward = _newForward.normalized;
@@ -36,7 +36,7 @@ public class PlayerMovement : MonoBehaviour
         _moveDir = moveDirection;
     }
 
-    public void Movement()
+    public void Move()
     {
         _newForward = Vector3.Normalize(new Vector3 (_moveDir.x, 0, _moveDir.z) * _movementSpeed * Time.deltaTime);
         

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class CharacterJump : MonoBehaviour
+public class PlayerJump : MonoBehaviour
 {
     private CharacterController _charController;
 
@@ -41,8 +41,7 @@ public class CharacterJump : MonoBehaviour
             {
                 _moveDir.y = _jumpHeight;
                 _charController.Move(_moveDir * Time.deltaTime);
-                _jumpCount++;
-                
+                _jumpCount++;                
             }
         }
     }

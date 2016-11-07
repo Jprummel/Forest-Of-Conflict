@@ -9,12 +9,16 @@ public class PlayerHealth : MonoBehaviour {
                     private PlayerInputs    _playerInputs;
                     public  Text            livesText;
 
-	void Start () {
+    public int CurrentHealth
+    {
+        get { return _currentHealth; }
+        set { _currentHealth = value; }
+    }
 
-        _playerInputs   = GetComponent<PlayerInputs>();
+	void Start () 
+    {
+        _playerInputs   = GetComponent<PlayerInputs>();//Gets the player number
         _currentHealth  = _startHealth; //Sets players currenthealth to his max health at the start
-        livesText       = GameObject.Find("Player" + _playerInputs.PlayerNumber + "Lives").GetComponent<Text>();
-        livesText.text  = "Player " + _playerInputs.PlayerNumber + " Lives : " + _currentHealth.ToString(); //Starts off showing the players full life count
 	}
 	
 	void Update () {
@@ -24,16 +28,10 @@ public class PlayerHealth : MonoBehaviour {
     public void ChangeHealth(int value)
     {
         _currentHealth += value;
-        UpdateLiveText();
     }
     public int GetHealth()
     {
         return _currentHealth;
-    }
-
-    public void UpdateLiveText()
-    {
-        livesText.text = "Player " + _playerInputs.PlayerNumber + " Lives : " + _currentHealth.ToString();
     }
 
     IEnumerator Death()

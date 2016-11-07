@@ -5,11 +5,11 @@ public class PlayerInputs : MonoBehaviour {
 
     //Gets the scripts that require input
     private PlayerRespawn       _playerRespawn;
-    private PlayerMovement      _playerMovement;
+    private Movement            _playerMovement;
     private CameraController    _cameraController;
     private PlayerAttack        _playerAttack;
     private Teleport            _teleport;
-    private CharacterJump       _jump;
+    private PlayerJump          _jump;
     //Assigns a number to the player
     [SerializeField]private int _playerNumber;
     private string              _playerNumberString;
@@ -33,11 +33,11 @@ public class PlayerInputs : MonoBehaviour {
 	void Start () {
         _playerNumberString = _playerNumber.ToString();         //turns the players assigned number to a string
         _playerRespawn      = GetComponent<PlayerRespawn>();
-        _playerMovement     = GetComponent<PlayerMovement>();   //Player movement script
+        _playerMovement     = GetComponent<Movement>();   //Player movement script
         _cameraController   = GetComponent<CameraController>(); //Camera controller script
         _playerAttack       = GetComponent<PlayerAttack>();     //Attack script
         _teleport           = GetComponent<Teleport>();         //Teleporting script
-        _jump               = GetComponent<CharacterJump>();             //Jumping script
+        _jump               = GetComponent<PlayerJump>();             //Jumping script
 	}
 	
 	void Update () {
