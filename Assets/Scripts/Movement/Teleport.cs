@@ -2,7 +2,9 @@
 using System.Collections;
 
 public class Teleport : MonoBehaviour {
-    
+
+    private CameraController _camController;
+
     [SerializeField]private GameObject  _particle;
     [SerializeField]private float       _teleportDistance;
     [SerializeField]private int         _maxTeleportCharges;
@@ -38,6 +40,7 @@ public class Teleport : MonoBehaviour {
     }
 
 	void Start () {
+        _camController = GetComponent<CameraController>();
         _charController = GetComponent<CharacterController>();
 	}
 
@@ -56,8 +59,9 @@ public class Teleport : MonoBehaviour {
     {
         if (_isTeleporting && _teleportCharges > 0)
         {
+            _teleportDir = (_teleportDir.x * _camController.CameraRight + _teleportDir.z * _camController.CameraForward).normalized * _teleportDistance * Time.deltaTime;
             Instantiate(_particle, this.transform.position, Quaternion.identity);
-            this._charController.Move(_teleportDir * Time.deltaTime * _teleportDistance);
+            this._charController.Move(_teleportDir);
             _teleportCharges--;
             _isTeleporting = false;
         }
