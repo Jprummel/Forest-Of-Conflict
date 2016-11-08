@@ -16,6 +16,20 @@ public class CameraController : MonoBehaviour {
     private Vector3 _cameraForward;
     private Vector3 _cameraRight;
 
+    //Getters and Setters
+
+    public Vector3 CameraForward
+    {
+        get { return _cameraForward; }
+        set { _cameraForward = value; }
+    }
+
+    public Vector3 CameraRight
+    {
+        get { return _cameraRight; }
+        set { _cameraRight = value; }
+    }
+
     void Start()
     {
         _offset = _target.position - _camera.position;
@@ -45,7 +59,6 @@ public class CameraController : MonoBehaviour {
         _cameraForward.y = 0;
         _cameraForward = _cameraForward.normalized;
 
-        //_target.forward = _cameraForward;
-        
+        _cameraRight = new Vector3(_cameraForward.z, 0, -_cameraForward.x);      
     }
 }

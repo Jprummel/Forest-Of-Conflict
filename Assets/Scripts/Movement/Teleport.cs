@@ -60,8 +60,6 @@ public class Teleport : MonoBehaviour {
             this._charController.Move(_teleportDir * Time.deltaTime * _teleportDistance);
             _teleportCharges--;
             _isTeleporting = false;
-            //StartCoroutine(TeleportChargeGain());
-            //RechargeTeleport();
         }
     }
 
@@ -70,24 +68,11 @@ public class Teleport : MonoBehaviour {
         if (_teleportCharges < _maxTeleportCharges)
         {
             _chargingTime += Time.deltaTime;
-            if (_chargingTime >= _rechargeTime)
+            if (_chargingTime > _rechargeTime)
             {
                 _chargingTime = 0;
                 _teleportCharges++;
             }
-        }
-
-        
+        }        
     }
-
-    IEnumerator TeleportChargeGain()
-    {
-        if (_teleportCharges < _maxTeleportCharges)
-        {
-            yield return new WaitForSeconds(5);
-            _teleportCharges++;
-        }
-    }
-
-    
 }

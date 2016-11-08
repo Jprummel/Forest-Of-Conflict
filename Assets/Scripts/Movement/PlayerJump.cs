@@ -5,12 +5,12 @@ public class PlayerJump : MonoBehaviour
 {
     private CharacterController _charController;
 
-    [SerializeField]private float _jumpHeight;
-    [SerializeField]private int _maxJumps;
-    private float _gravity = 20;
-    private int _jumpCount;
-    private bool _pressedJump;
-    private Vector3 _moveDir = Vector3.zero;
+    [SerializeField]private float   _jumpHeight;
+    [SerializeField]private int     _maxJumps;
+                    private float   _gravity = 20;
+                    private int     _jumpCount;
+                    private bool    _pressedJump;
+                    private Vector3 _moveDir = Vector3.zero;
 
     void Start()
     {

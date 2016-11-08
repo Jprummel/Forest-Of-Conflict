@@ -7,16 +7,11 @@ public class TeleportUI : MonoBehaviour {
     [SerializeField]private Image       _teleportImage;
     [SerializeField]private Text        _teleportChargeText;
     [SerializeField]private Teleport    _playerTeleportInfo;
-	// Use this for initialization
-	void Start () {
 
+	void Start () 
+    {
         UIDelegates.CooldownEvent += ImageFill;
         UIDelegates.TextEvent += ShowTeleportCharges;
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
 	}
 
     void ImageFill()
