@@ -4,16 +4,24 @@ using System.Collections;
 public class Movement : MonoBehaviour 
 {
     private CharacterController _charController;
+    private AnimStateHandler _anim;
     //Speed
     [SerializeField]private float _movementSpeed;
     [SerializeField]private float _turnSpeed;
     //Vectors
-    private Vector3 _moveDir;
-    private Quaternion _rotation;
-    private CameraController _camController;
+    private Vector3             _moveDir;
+    private Quaternion          _rotation;
+    private CameraController    _camController;
+
+    public Vector3 MoveDir
+    {
+        get { return _moveDir; }
+        set { _moveDir = value; }
+    }
 
     void Start()
     {
+        _anim = GetComponent<AnimStateHandler>();
         _camController = GetComponent<CameraController>();
         _charController = GetComponent<CharacterController>();
     }
@@ -33,6 +41,7 @@ public class Movement : MonoBehaviour
 
     public void Move()
     {
+        _anim.AnimState(1);
         float moveDirX = _moveDir.x >= 0 ? _moveDir.x : -_moveDir.x;
         float moveDirZ = _moveDir.z >= 0 ? _moveDir.z : -_moveDir.z;
         float maxSpeed = moveDirX >= moveDirZ ? moveDirX : moveDirZ;

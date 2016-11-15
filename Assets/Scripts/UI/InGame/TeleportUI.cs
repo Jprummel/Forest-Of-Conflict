@@ -18,14 +18,13 @@ public class TeleportUI : MonoBehaviour {
     {        
         if (_playerTeleportInfo.TeleportCharges < _playerTeleportInfo.MaxTeleportCharges)
         {
-            Debug.Log("ayy");
             _teleportImage.fillAmount = _playerTeleportInfo.ChargingTime / _playerTeleportInfo.RechargeTime;
         }
     }
 
     void ShowTeleportCharges()
     {
-        _teleportChargeText.text = _playerTeleportInfo.TeleportCharges.ToString();
+        _teleportChargeText.text = "Teleports "+ "\n"+_playerTeleportInfo.TeleportCharges.ToString();
     }
 
     void OnDisable()

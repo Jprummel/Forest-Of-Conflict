@@ -12,6 +12,6 @@ public class AnimStateHandler : MonoBehaviour
 
     public void AnimState(int whichState)//Sets the animation state
     {
-        _playerAnim.SetInteger("State", whichState);
+        _playerAnim.SetInteger("MoveState", whichState);
     }
 }
