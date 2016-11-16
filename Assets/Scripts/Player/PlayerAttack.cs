@@ -26,6 +26,7 @@ public class PlayerAttack : MonoBehaviour
 
     void Update()
     {
+        Debug.Log(_weapon.forward);
         Attack();
         if (_attackTimer < _attackCooldown)     //Cooldown timer for attacking
         {
@@ -51,6 +52,7 @@ public class PlayerAttack : MonoBehaviour
     {
         _isAttacking = true;
         _animator.SetAnimBool("IsAttacking", true);
+        CheckForHit();
         yield return new WaitForSeconds(_attackAnimTime);
         _animator.SetAnimBool("IsAttacking",false);
         _isAttacking = false;
@@ -65,10 +67,24 @@ public class PlayerAttack : MonoBehaviour
     {
         if (_isAttacking)
         {
-            if (Physics.Raycast(transform.position, _weapon.forward, 10))
+            Collider[] col = Physics.OverlapSphere(_weapon.position, 5);
+            if (col != null)
             {
-
+                for (int i = 0; i < col.Length; i++)
+                {
+                    if (col[i].tag == "Player" && col[i].gameObject != this.gameObject) //Checks if raycast hits a player but not accidentaly the one that is attacking
+                    {
+                        PlayerRespawn enemyHit = col[i].GetComponent<PlayerRespawn>();
+                        StartCoroutine(enemyHit.Respawn());
+                    }
+                }
             }
-        }
+        }        
+    }
+
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawSphere(_weapon.position,5);
     }
 }
