@@ -4,7 +4,7 @@ using System.Collections;
 public class Movement : MonoBehaviour 
 {
     private CharacterController _charController;
-    private AnimStateHandler _anim;
+    private AnimationController _animator;
     //Speed
     [SerializeField]private float _movementSpeed;
     [SerializeField]private float _turnSpeed;
@@ -21,7 +21,7 @@ public class Movement : MonoBehaviour
 
     void Start()
     {
-        _anim = GetComponent<AnimStateHandler>();
+        _animator = GetComponent<AnimationController>();
         _camController = GetComponent<CameraController>();
         _charController = GetComponent<CharacterController>();
     }
@@ -32,6 +32,8 @@ public class Movement : MonoBehaviour
         {
             Move();
         }
+
+        AnimationHandling();
     }
 
     public void Inputs(Vector3 moveDirection)
@@ -41,7 +43,6 @@ public class Movement : MonoBehaviour
 
     public void Move()
     {
-        _anim.AnimState(1);
         float moveDirX = _moveDir.x >= 0 ? _moveDir.x : -_moveDir.x;
         float moveDirZ = _moveDir.z >= 0 ? _moveDir.z : -_moveDir.z;
         float maxSpeed = moveDirX >= moveDirZ ? moveDirX : moveDirZ;
@@ -52,7 +53,20 @@ public class Movement : MonoBehaviour
         {
             _rotation = Quaternion.LookRotation(_moveDir * Time.deltaTime);
         }
+        
         this.transform.rotation = Quaternion.Lerp(this.transform.rotation,_rotation,Time.deltaTime * _turnSpeed);
         _charController.Move(_moveDir);
+    }
+
+    void AnimationHandling()
+    {
+        if (_moveDir == Vector3.zero)
+        {
+            _animator.SetAnimInt("MoveState", 0);
+        }
+        else if (_moveDir != Vector3.zero)
+        {
+            _animator.SetAnimInt("MoveState", 1);
+        }
     }
 }

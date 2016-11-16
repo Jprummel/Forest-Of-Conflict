@@ -5,21 +5,22 @@ using System.Collections;
 public class PlayerAttack : MonoBehaviour
 {
     //Editor Values
-    [SerializeField]private float _thrustForce;         // The force the player goes forward with when attacking
-    private AnimStateHandler    _animator;              //Import Animator class
-    private CharacterController _charController;
-    private CameraController    _cam;
-    private bool                _isAttacking;           //Checks if player is Attacking
-    private bool                _pressedAttack;
-    private float               _attackAnimTime = 0.5f; //Length of Attack Animation
-    private float               _attackCooldown = 1f;   //End timer for cooldown
-    private float               _attackTimer = 0f;      //Start timer for cooldown
+    [SerializeField]private Transform   _weapon;
+    [SerializeField]private float       _thrustForce;         // The force the player goes forward with when attacking
+    private AnimationController         _animator;              //Import Animator class
+    private CharacterController         _charController;
+    private CameraController            _cam;
+    private bool                        _isAttacking;           //Checks if player is Attacking
+    private bool                        _pressedAttack;
+    private float                       _attackAnimTime = 0.5f; //Length of Attack Animation
+    private float                       _attackCooldown = 1f;   //End timer for cooldown
+    private float                       _attackTimer = 0f;      //Start timer for cooldown
     
 
     void Start()
     {
         _cam = GetComponent<CameraController>();
-        _animator = GetComponent<AnimStateHandler>();
+        _animator = GetComponent<AnimationController>();
         _charController = GetComponent<CharacterController>();
     }
 
@@ -49,14 +50,25 @@ public class PlayerAttack : MonoBehaviour
     IEnumerator AttackTimer()
     {
         _isAttacking = true;
-        _animator.AnimState(1);
+        _animator.SetAnimBool("IsAttacking", true);
         yield return new WaitForSeconds(_attackAnimTime);
-        _animator.AnimState(0);
+        _animator.SetAnimBool("IsAttacking",false);
         _isAttacking = false;
     }
 
     public bool Attacking()
     {
         return _isAttacking;
+    }
+
+    void CheckForHit()
+    {
+        if (_isAttacking)
+        {
+            if (Physics.Raycast(transform.position, _weapon.forward, 10))
+            {
+
+            }
+        }
     }
 }

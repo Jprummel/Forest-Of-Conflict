@@ -9,9 +9,14 @@ public class AnimationController : MonoBehaviour {
 	void Start () {
         _anim = GetComponent<Animator>();
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+
+    public void SetAnimBool(string ID, bool value)
+    {
+        _anim.SetBool(ID, value);
+    }
+
+    public void SetAnimInt(string ID, int value)
+    {
+        _anim.SetInteger(ID, value);
+    }
 }

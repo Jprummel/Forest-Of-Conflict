@@ -4,13 +4,14 @@ using System.Collections;
 public class Teleport : MonoBehaviour {
 
     private CameraController _camController;
+    private AnimationController _animator;
 
     [SerializeField]private GameObject  _particle;
     [SerializeField]private float       _teleportDistance;
     [SerializeField]private int         _maxTeleportCharges;
     [SerializeField]private int         _teleportCharges;
     [SerializeField]private float       _rechargeTime;
-
+    [SerializeField]private Transform   _particlePos;
     private CharacterController         _charController;
     private bool                        _isTeleporting;
     private float                       _chargingTime = 0;
@@ -41,6 +42,7 @@ public class Teleport : MonoBehaviour {
 
 	void Start () {
         _camController = GetComponent<CameraController>();
+        _animator = GetComponent<AnimationController>();
         _charController = GetComponent<CharacterController>();
 	}
 
@@ -59,11 +61,12 @@ public class Teleport : MonoBehaviour {
     {
         if (_isTeleporting && _teleportCharges > 0)
         {
-            _teleportDir = (_teleportDir.x * _camController.CameraRight + _teleportDir.z * _camController.CameraForward).normalized * _teleportDistance * Time.deltaTime;
+            /*_teleportDir = (_teleportDir.x * _camController.CameraRight + _teleportDir.z * _camController.CameraForward).normalized * _teleportDistance * Time.deltaTime;
             Instantiate(_particle, this.transform.position, Quaternion.identity);
             this._charController.Move(_teleportDir);
             _teleportCharges--;
-            _isTeleporting = false;
+            _isTeleporting = false;*/
+            StartCoroutine(TeleportRoutine());
         }
     }
 
@@ -78,5 +81,18 @@ public class Teleport : MonoBehaviour {
                 _teleportCharges++;
             }
         }        
+    }
+
+    IEnumerator TeleportRoutine()
+    {
+        _animator.SetAnimBool("IsTeleporting", true);
+        _teleportDir = (_teleportDir.x * _camController.CameraRight + _teleportDir.z * _camController.CameraForward).normalized * _teleportDistance * Time.deltaTime;
+        _teleportCharges--;
+        Instantiate(_particle, _particlePos.position, Quaternion.identity);
+        _charController.Move(_teleportDir);   
+        yield return new WaitForSeconds(0.1f);
+             
+        _isTeleporting = false;
+        _animator.SetAnimBool("IsTeleporting", false);
     }
 }
