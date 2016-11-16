@@ -24,7 +24,7 @@ public class TeleportUI : MonoBehaviour {
 
     void ShowTeleportCharges()
     {
-        _teleportChargeText.text = "Teleports "+ "\n"+_playerTeleportInfo.TeleportCharges.ToString();
+        _teleportChargeText.text = "Teleports "+ "\n" +_playerTeleportInfo.TeleportCharges.ToString();
     }
 
     void OnDisable()

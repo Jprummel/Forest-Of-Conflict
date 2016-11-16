@@ -3,8 +3,8 @@ using System.Collections;
 
 public class CollisionHandler : MonoBehaviour
 {
-    [SerializeField]private GameObject      _bloodSplatter; //Blood Particle
-                    private PlayerRespawn   _respawn; //Import Respawn script
+    [SerializeField]private GameObject _weapon;
+    private PlayerRespawn   _respawn; //Import Respawn script
 
     void Start()
     {
@@ -13,14 +13,12 @@ public class CollisionHandler : MonoBehaviour
 
     void OnTriggerEnter(Collider coll)
     {
-        if (coll.gameObject.tag == "Weapon" && this.tag == "Player")
+        if (coll.gameObject.tag == "Weapon" && coll.gameObject != _weapon && this.gameObject.tag == "Player")
         {
-            PlayerAttack enemySword = coll.gameObject.GetComponentInParent<PlayerAttack>();
-            if (enemySword.Attacking() && _respawn.IsAlive()) //Checks if other player is attacking or not
+            PlayerAttack enemy = coll.gameObject.GetComponentInParent<PlayerAttack>();
+            if (enemy.Attacking() && _respawn.IsAlive()) //Checks if other player is attacking or not
             {
-                GameObject newBloodSplatter = Instantiate(_bloodSplatter, transform.position, Quaternion.identity) as GameObject; //Spawns blood particle
-                newBloodSplatter.transform.parent = transform;
-                newBloodSplatter.transform.localPosition = new Vector3(0, 1.1f, 0); //Positions blood particle
+                Debug.Log("ey");
                 StartCoroutine(_respawn.Respawn());
             }
         }

@@ -4,7 +4,7 @@ using System.Collections;
 public class PlayerJump : MonoBehaviour
 {
     private CharacterController _charController;
-
+    private AnimationController _animator;
     [SerializeField]private float   _jumpHeight;
     [SerializeField]private int     _maxJumps;
                     private float   _gravity = 20;
@@ -14,6 +14,7 @@ public class PlayerJump : MonoBehaviour
 
     void Start()
     {
+        _animator = GetComponent<AnimationController>();
         _charController = this.GetComponent<CharacterController>();
     }
 
@@ -39,11 +40,19 @@ public class PlayerJump : MonoBehaviour
         {
             if (_pressedJump)
             {
-                _moveDir.y = _jumpHeight;
-                _charController.Move(_moveDir * Time.deltaTime);
-                _jumpCount++;                
+                StartCoroutine(JumpRoutine());
             }
         }
+    }
+
+    IEnumerator JumpRoutine()
+    {
+        _moveDir.y = _jumpHeight;
+        _charController.Move(_moveDir * Time.deltaTime);
+        _jumpCount++;
+        _animator.SetAnimBool("IsJumping", true);
+        yield return new WaitForSeconds(1);
+        _animator.SetAnimBool("IsJumping", false);
     }
 
     public void ResetJumpCount()

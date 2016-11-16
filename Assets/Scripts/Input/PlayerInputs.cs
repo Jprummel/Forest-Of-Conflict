@@ -3,7 +3,6 @@ using System.Collections;
 
 public class PlayerInputs : MonoBehaviour {
 
-    private Animator _anim;
     //Gets the scripts that require input
     private PlayerRespawn       _playerRespawn;
     private Movement            _playerMovement;
@@ -38,8 +37,7 @@ public class PlayerInputs : MonoBehaviour {
         _cameraController   = GetComponent<CameraController>(); //Camera controller script
         _playerAttack       = GetComponent<PlayerAttack>();     //Attack script
         _teleport           = GetComponent<Teleport>();         //Teleporting script
-        _jump               = GetComponent<PlayerJump>();             //Jumping script
-        _anim = GetComponent<Animator>();
+        _jump               = GetComponent<PlayerJump>();       //Jumping script
 	}
 	
 	void Update () {
@@ -74,32 +72,5 @@ public class PlayerInputs : MonoBehaviour {
         _playerAttack.Input(_isAttacking);
         _teleport.Input(_moveDirection,_isTeleporting);
         _jump.Input(_isJumping);
-
-        //AnimationInputs();
     }
-
-    /*void AnimationInputs()
-    {
-        if (_moveDirection == Vector3.zero)
-        {
-            _anim.SetInteger("MoveState", 0);
-        }
-
-        if (_moveDirection != Vector3.zero)
-        {
-            _anim.SetInteger("MoveState", 1);
-        }
-        if (_isJumping)
-        {
-            _anim.SetBool("IsJumping", true);
-        }
-        if (_isTeleporting)
-        {
-            _anim.SetBool("IsTeleporting", true);
-        }
-        if (_isAttacking)
-        {
-            _anim.SetBool("IsAttacking", true);
-        }
-    }*/
 }

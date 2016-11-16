@@ -6,8 +6,8 @@ using System.Collections;
 public class WinText : MonoBehaviour {
 
     [SerializeField]private float       _endtimer;
-                    private GameObject  _player1;
-                    private GameObject  _player2;
+    [SerializeField]private GameObject  _player1;
+    [SerializeField]private GameObject  _player2;
                     private Text        _winText;
     
     
@@ -15,9 +15,6 @@ public class WinText : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         UIDelegates.TextEvent += CheckForWinner;
-
-        _player1 = GameObject.Find("Player1");
-        _player2 = GameObject.Find("Player2");
         _winText = GetComponent<Text>();
 	}
 	
