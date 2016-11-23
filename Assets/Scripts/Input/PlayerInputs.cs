@@ -33,7 +33,7 @@ public class PlayerInputs : MonoBehaviour {
 	void Start () {
         _playerNumberString = _playerNumber.ToString();         //turns the players assigned number to a string
         _playerRespawn      = GetComponent<PlayerRespawn>();
-        _playerMovement     = GetComponent<Movement>();   //Player movement script
+        _playerMovement     = GetComponent<Movement>();         //Player movement script
         _cameraController   = GetComponent<CameraController>(); //Camera controller script
         _playerAttack       = GetComponent<PlayerAttack>();     //Attack script
         _teleport           = GetComponent<Teleport>();         //Teleporting script
@@ -56,11 +56,11 @@ public class PlayerInputs : MonoBehaviour {
         _rotationVertical = Input.GetAxis(InputAxes.rightY + _playerNumberString);
         
         //Jumping & Teleporting
-        _isJumping = Input.GetButtonDown(InputAxes.a + _playerNumberString);
+        _isJumping = Input.GetButtonDown(InputAxes.button_a + _playerNumberString);
         _isTeleporting = Input.GetButtonDown(InputAxes.lb + _playerNumberString);
         
         //Attack
-        _isAttacking = Input.GetButtonDown(InputAxes.x + _playerNumberString);
+        _isAttacking = Input.GetButtonDown(InputAxes.button_x + _playerNumberString);
 
         //Sets the movement and roation vectors
         _moveDirection = new Vector3(_moveHorizontal, 0, _moveVertical);

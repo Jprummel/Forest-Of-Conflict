@@ -26,6 +26,11 @@ public class PlayerJump : MonoBehaviour
         if (_charController.collisionFlags == CollisionFlags.Below)
         {
             ResetJumpCount();
+            _animator.SetAnimBool("IsGrounded", true);
+        }
+        else
+        {
+            _animator.SetAnimBool("IsGrounded", false);
         }
     }
 
@@ -51,8 +56,13 @@ public class PlayerJump : MonoBehaviour
         _charController.Move(_moveDir * Time.deltaTime);
         _jumpCount++;
         _animator.SetAnimBool("IsJumping", true);
+        _animator.SetAnimInt("JumpState", _jumpCount);
         yield return new WaitForSeconds(1);
         _animator.SetAnimBool("IsJumping", false);
+        if (_jumpCount == 2)
+        {
+            _jumpCount = 3; //Makes sure the animation doesnt loop while double jumping
+        }
     }
 
     public void ResetJumpCount()
